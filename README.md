@@ -14,6 +14,7 @@
 - In party?**
 - Nicked People
 - Support for vanilla, badlion, pvplounge, and lunar client.
+- Right-click menu for individual gamemode stats
 
 ** This finds people in parties; it only works if you are in a party chat. That means if you were theoretically in all-chat, this would not detect it.
 
