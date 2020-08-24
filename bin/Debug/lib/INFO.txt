@@ -1,0 +1,39 @@
+Made by OFF_LINE#6596 aka DominantDev
+
+============================================================================================================================================================================================================
+
+STEPS TO USE:
+
+1. Type "/api new" in chat. You will see something in chat something like "Your new API KEY is:........."
+
+2. Wait for the program to grab the key or click "Get API"
+
+3. Now, go into a bedwars lobby and do /who, click "Get Stats". (or wait for the program to grab)
+
+4. Watch as everything loads :)
+
+IMPORTANT INFORMATION:
+
+This program will attempt to find the latest minecraft you use. If by chance you switch between 2 different minecraft clients (like badlion and vanilla), 
+you should only open BedWars stats after launching the game. Thanks!
+
+
+============================================================================================================================================================================================================
+
+OTHER INFO:
+
+Q: Bruh, the program is disappearing!!!
+A: No.. its just opacity changer, its still there, just click the area where you last saw it "disappear"
+
+
+Q: This program sucks
+A: No u
+
+Q: Why so laggy?
+A: Meh, c# isn't well-known for performance, i guess that was the main drawback when I decided to code in c# :shrug:
+
+Q: What clients do you support?
+A: ATM, badlion, vanilla/forge, pvplounge, and lunar (TURN OFF AC).
+
+============================================================================================================================================================================================================
+Have fun :))

@@ -1,0 +1,13 @@
+C:\Users\devli\source\repos\BedwarsStats\bin\Debug\BedwarsStats.exe.config
+C:\Users\devli\source\repos\BedwarsStats\bin\Debug\BedwarsStats.exe
+C:\Users\devli\source\repos\BedwarsStats\bin\Debug\BedwarsStats.pdb
+C:\Users\devli\source\repos\BedwarsStats\obj\Debug\BedwarsStats.Form1.resources
+C:\Users\devli\source\repos\BedwarsStats\obj\Debug\BedwarsStats.Properties.Resources.resources
+C:\Users\devli\source\repos\BedwarsStats\obj\Debug\BedwarsStats.csproj.GenerateResource.cache
+C:\Users\devli\source\repos\BedwarsStats\obj\Debug\BedwarsStats.csproj.CoreCompileInputs.cache
+C:\Users\devli\source\repos\BedwarsStats\obj\Debug\BedwarsStats.exe
+C:\Users\devli\source\repos\BedwarsStats\obj\Debug\BedwarsStats.pdb
+C:\Users\devli\source\repos\BedwarsStats\bin\Debug\Newtonsoft.Json.dll
+C:\Users\devli\source\repos\BedwarsStats\bin\Debug\Newtonsoft.Json.xml
+C:\Users\devli\source\repos\BedwarsStats\obj\Debug\BedwarsStats.csproj.CopyComplete
+C:\Users\devli\source\repos\BedwarsStats\obj\Debug\BedwarsStats.csprojAssemblyReference.cache
