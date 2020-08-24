@@ -1,0 +1,1 @@
+Get realtime stats of a bedwars game.
