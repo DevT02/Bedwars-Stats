@@ -11,11 +11,11 @@
 - Finals
 - Final Kill Death Ratio
 - Win Loss Ratio
-- In party?*
+- In party?**
 - Nicked People
 - Support for vanilla, badlion, pvplounge, and lunar client.
 
-* This finds people in parties; it only works if you are in a party chat. That means if you were theoretically in all-chat, this would not detect it.
+** This finds people in parties; it only works if you are in a party chat. That means if you were theoretically in all-chat, this would not detect it.
 
 # How to use
   1. Type in hypixel chat: "/api new"
