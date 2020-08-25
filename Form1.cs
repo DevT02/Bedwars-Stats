@@ -341,7 +341,7 @@ namespace BedwarsStats
                     // Warning /
                     try
                     {
-                        backtoSbr = splittedUsernames[1].Replace(" ", "").Split(','); // 0th index is shit before, 1st index will get everyone's username. Here, for every comma i split it into a new array element
+                        backtoSbr = splittedUsernames[1].Replace(" ", "").Split(','); // 0th index is stuff before, 1st index will get everyone's username. Here, for every comma i split it into a new array element
                     }
                     catch
                     {
@@ -358,14 +358,14 @@ namespace BedwarsStats
                         try
                         {
 
-                            string shit = "https://api.hypixel.net/player?key=" + ApiKey + "&name=" + listBox1.Items[i];
-                            if (!aasdsd.Contains(shit))
+                            string link = "https://api.hypixel.net/player?key=" + ApiKey + "&name=" + listBox1.Items[i];
+                            if (!aasdsd.Contains(link))
                             {
-                                aasdsd.Add(shit);
+                                aasdsd.Add(link);
                                 WebClient webClient = new WebClient();
                                 webClient.Headers.Add("User-Agent: Other"); //incase stupid security validation
 
-                                string innerworkings = webClient.DownloadString(shit);
+                                string innerworkings = webClient.DownloadString(link);
                                 await Task.Delay(110);
                                 bool yesorno = true;
                                 if (innerworkings == ("{\"success\":true,\"player\":null}") || innerworkings.Replace(" ", "").Contains("\"player\":null"))
@@ -540,9 +540,9 @@ namespace BedwarsStats
         bool apikeyexists = false;
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            fuck();
+            acv();
         }
-        private void fuck()
+        private void acv()
         {
             if (!apikeyexists)
             {
