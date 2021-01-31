@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,8 +46,8 @@ namespace BedwarsStats
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             height = this.Size.Height;
-            this.timer2.Enabled = false;
             this.timer1.Enabled = true;
+            this.timer2.Enabled = false;
             listBox2.DrawItem += new DrawItemEventHandler(listBox2_DrawItem);
             listBox5.DrawItem += new DrawItemEventHandler(listBox5_DrawItem);
             listBox3.DrawItem += new DrawItemEventHandler(listBox3_DrawItem);
@@ -58,19 +58,9 @@ namespace BedwarsStats
             DateTime badlionClient = new DateTime(), regularClient = new DateTime(), pvplounge = new DateTime(), lunar = new DateTime();
             if (Directory.Exists(appdata + "\\.minecraft\\logs\\") || Directory.Exists(appdata + "\\.pvplounge\\logs\\") || Directory.Exists(appdata + "\\lunarclient\\logs\\"))
             {
-                if (Directory.Exists(appdata + "\\.minecraft\\logs\\blclient\\minecraft"))
-                {
-                    badlionClient = File.GetLastWriteTime(appdata + "\\.minecraft\\logs\\blclient\\minecraft\\latest.log");
-                }
-                if (Directory.Exists(appdata + "\\.pvplounge\\logs\\"))
-                {
-                    pvplounge = File.GetLastWriteTime(appdata + "\\.pvplounge\\logs\\latest.log");
-                }
-                if (Directory.Exists(appdata + "\\lunarclient\\logs\\"))
-                {
-                    lunar = File.GetLastWriteTime(appdata + "\\lunarclient\\logs\\latest.log");
-                }
-
+                badlionClient = File.GetLastWriteTime(appdata + "\\.minecraft\\logs\\blclient\\minecraft\\latest.log");
+                pvplounge = File.GetLastWriteTime(appdata + "\\.pvplounge\\logs\\latest.log");
+                lunar = File.GetLastWriteTime(appdata + "\\lunarclient\\logs\\latest.log");
                 regularClient = File.GetLastWriteTime(appdata + "\\.minecraft\\logs\\latest.log");
 
                 if (badlionClient > regularClient && !(pvplounge > badlionClient) && !(lunar > badlionClient))
@@ -300,11 +290,20 @@ namespace BedwarsStats
         {
             AppendText(richTextBox1, Color.White, "Please do \"/api new\" and \"/who\" when in game before clicking anything.");
         }
-        public string[] backtoSbr, splittedUsernames, stars, fkdr, finals, wlr, arr, rank;
+        public string[] backtoSbr, splittedUsernames;
         public string ApiKey;
 
-        public ArrayList aasdsd = new ArrayList(); //stores all usernames for later reference
+        public ArrayList previousUsernames = new ArrayList(); //stores all usernames for later reference
+        public ArrayList starArrayList = new ArrayList();
+        public ArrayList rankArrayList = new ArrayList();
+        public ArrayList finalsList = new ArrayList();
+        public ArrayList winLossList = new ArrayList();
+        public ArrayList FKDRList = new ArrayList();
+        public ArrayList partyList = new ArrayList();
+        public ArrayList nickedList = new ArrayList();
+        //public ArrayList sorter = new ArrayList();
 
+        public string botNames = new WebClient().DownloadString("https://pastebin.com/b5fZntN5");
         public async void firstcheck()
         {
             try
@@ -312,13 +311,8 @@ namespace BedwarsStats
 
                 if (backtoSbr == null)
                 {
-
                     splittedUsernames = null;
-                    stars = null;
-                    fkdr = null;
-                    finals = null;
-                    wlr = null;
-                    rank = null;
+     
 
 
                     Stream stream = File.Open(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + theLogLocation, FileMode.Open, FileAccess.Read, FileShare.ReadWrite); //readalllines doesnt work because of processexception meaning blc cant have it open
@@ -329,63 +323,63 @@ namespace BedwarsStats
                     streamReader.Close();
                     stream.Close();
                     AppendText(richTextBox1, Color.Green, "[+] Got textlog!");
-                    Clipboard.SetText(ApiKey);
+
+
                     var t = str.Where(file => file.Contains("ONLINE:")); // lambda expression to check file
                     foreach (var item in t)
                     {
                         splittedUsernames = item.Split(new string[] { "ONLINE: " }, StringSplitOptions.None);
                     }
+
+
                     AppendText(richTextBox1, Color.Green, "[+] Got usernames!");
 
                     // This code will get the latest text (closest to the bottom) meaning there is no need to check for beforehand statements
-                    // Warning /
+                    
                     try
                     {
-                        backtoSbr = splittedUsernames[1].Replace(" ", "").Split(','); // 0th index is stuff before, 1st index will get everyone's username. Here, for every comma i split it into a new array element
+                        backtoSbr = splittedUsernames[1].Replace(" ", "").Split(','); // 0th index is shit before, 1st index will get everyone's username. Here, for every comma i split it into a new array element
                     }
                     catch
                     {
-                        AppendText(richTextBox1, Color.Red, "[+] Please do /who and try again!");
+                        AppendText(richTextBox1, Color.Red, "[+] Please do /who and try again!"); // literally 0 chance of this happening but if you manage to be goofy then ig
                     }
 
-                    for (int i = 0; i < backtoSbr.Length; i++)
-                    {
-                        listBox1.Items.Add(backtoSbr[i]);
-                    }
+                    listBox1.Items.AddRange(backtoSbr);
+                    
+
                     AppendText(richTextBox1, Color.Green, "[+] Added usernames!");
                     for (int i = 0; i < listBox1.Items.Count; i++)
                     {
                         try
                         {
 
-                            string link = "https://api.hypixel.net/player?key=" + ApiKey + "&name=" + listBox1.Items[i];
-                            if (!aasdsd.Contains(link))
+                            string shit = "https://api.hypixel.net/player?key=" + ApiKey + "&name=" + listBox1.Items[i];
+                            if (!previousUsernames.Contains(shit))
                             {
-                                aasdsd.Add(link);
+                                previousUsernames.Add(shit);
                                 WebClient webClient = new WebClient();
                                 webClient.Headers.Add("User-Agent: Other"); //incase stupid security validation
-
-                                string innerworkings = webClient.DownloadString(link);
+                                string innerworkings = webClient.DownloadString(shit);
                                 await Task.Delay(110);
-                                bool yesorno = true;
                                 if (innerworkings == ("{\"success\":true,\"player\":null}") || innerworkings.Replace(" ", "").Contains("\"player\":null"))
                                 {
-                                    listBox6.Items.Add(listBox1.Items[i]);
-                                    listBox5.Items.Add(" ");
-                                    listBox4.Items.Add(" ");
-                                    listBox3.Items.Add(" ");
-                                    listBox2.Items.Add(" ");
-                                    listBox7.Items.Add(" ");
-                                    listBox8.Items.Add(" ");
-                                    yesorno = false;
+
+                                    nickedList.Add(listBox1.Items[i]);
+                                    starArrayList.Add(" ");
+                                    rankArrayList.Add(" ");
+                                    FKDRList.Add(0);
+                                    winLossList.Add(0);
+                                    finalsList.Add(" ");
+                                    partyList.Add(" ");
                                 }
-                                if (yesorno)
+                                else
                                 {
                                     JObject json = JObject.Parse(innerworkings);
-                                    int finalkills, losses, wins, finaldeaths, winstreak, networkexp;
+                                    int finalkills, losses, wins, finaldeaths/*, winstreak, networkexp*/;
                                     string finalkillswithcomma;
                                     bool isbotOrNot = false;
-                                    if (new WebClient().DownloadString("https://pastebin.com/b5fZntN5").Contains(("\"" + listBox1.Items[i]) + "\""))
+                                    if (botNames.Contains(("\"" + listBox1.Items[i]) + "\""))
                                     {
                                         isbotOrNot = true;
                                     }
@@ -394,24 +388,26 @@ namespace BedwarsStats
                                     losses = json["player"]["stats"]["Bedwars"]["losses_bedwars"] != null ? (int)json["player"]["stats"]["Bedwars"]["losses_bedwars"] : 1; //to not cause a dividebyzeroexception when finding WLR
                                     finaldeaths = json["player"]["stats"]["Bedwars"]["final_deaths_bedwars"] != null ? (int)json["player"]["stats"]["Bedwars"]["final_deaths_bedwars"] : 1;
                                     wins = json["player"]["stats"]["Bedwars"]["wins_bedwars"] != null ? (int)json["player"]["stats"]["Bedwars"]["wins_bedwars"] : 0;
-                                    winstreak = json["player"]["stats"]["Bedwars"]["winstreak"] != null ? (int)json["player"]["stats"]["Bedwars"]["wins_bedwars"] : 0;
-                                    starssss = json["player"]["achievements"]["bedwars_level"] != null ? (int)json["player"]["achievements"]["bedwars_level"] : 0;
-                                    networkexp = json["player"]["networkExp"] != null ? (int)json["player"]["networkExp"] : 0;
+                                    int theStars = json["player"]["achievements"]["bedwars_level"] != null ? (int)json["player"]["achievements"]["bedwars_level"] : 0;
+                                    starArrayList.Add(theStars + " ✰");
+                                    //winstreak = json["player"]["stats"]["Bedwars"]["winstreak"] != null ? (int)json["player"]["stats"]["Bedwars"]["wins_bedwars"] : 0;
+
+                                    // networkexp = json["player"]["networkExp"] != null ? (int)json["player"]["networkExp"] : 0;
                                     string converted = "\"" + listBox1.Items[i] + "\"";
 
 
 
 
-                                    if ((string)json["player"]["channel"] == "ALL" || (string)json["player"]["channel"] == null) { listBox7.Items.Add(" ");  } else listBox7.Items.Add("✓");
-                                    if (isbotOrNot) listBox8.Items.Add("BOT!!");
-                                    else if ((string)json["player"]["newPackageRank"] == null) listBox8.Items.Add(" ");
+                                    if ((string)json["player"]["channel"] == "ALL" || (string)json["player"]["channel"] == null) { partyList.Add(" ");  } else partyList.Add("✓"); // party array
+                                    if (isbotOrNot) rankArrayList.Add("BOT!!"); // below code if - else statements are for ranks
+                                    else if ((string)json["player"]["newPackageRank"] == null) rankArrayList.Add(" ");
                                     else
                                     {
 
                                         string therank = (string)json["player"]["newPackageRank"];
                                         if ((string)json["player"]["monthlyPackageRank"] != null && (string)json["player"]["monthlyPackageRank"] != "NONE")
                                         {
-                                            listBox8.Items.Add("MVP++");
+                                            rankArrayList.Add("MVP++");
                                         }
                                         else
                                         {
@@ -419,22 +415,39 @@ namespace BedwarsStats
                                             if (therank == "MVP_PLUS") therank = "MVP+";
 
 
-                                            listBox8.Items.Add(therank);
+                                            rankArrayList.Add(therank);
                                         }
                                     }
                                     finalkillswithcomma = "#" + finalkills.ToString("N0");
-                                    double fkdr = Math.Round((double)finalkills / finaldeaths, 2);
-                                    double wlr = Math.Round((double)wins / losses, 2);
-                                    listBox2.Items.Add(starssss + " ✰");
-                                    listBox3.Items.Add(finalkillswithcomma);
-                                    listBox4.Items.Add(wlr);
-                                    listBox5.Items.Add(fkdr);
+                                    finalsList.Add(finalkillswithcomma); // final kills array
+                                    
+                                    FKDRList.Add(Math.Round((double)finalkills / finaldeaths, 2)); // fkdr array
+                                    winLossList.Add(Math.Round((double)wins / losses, 2)); // win loss ratio
+                                    //listBox2.Items.Add(starssss + " ✰");
+                                    //listBox3.Items.Add(finalkillswithcomma);
+                                    //listBox4.Items.Add(wlr);
+                                    //listBox5.Items.Add(fkdr);
                                     //listBox9.Items.Add(getLevel(networkexp));
                                     // json values wont return a value if null so this is required
+
+
                                     if (i == listBox1.Items.Count - 1)
                                     {
-                                        aasdsd.Clear();
-                                        // this is the last item
+                                        listBox2.Items.AddRange(starArrayList.ToArray());
+                                        listBox8.Items.AddRange(rankArrayList.ToArray());
+                                        listBox3.Items.AddRange(finalsList.ToArray());
+                                        listBox4.Items.AddRange(winLossList.ToArray());
+                                        listBox5.Items.AddRange(FKDRList.ToArray());
+                                        listBox7.Items.AddRange(partyList.ToArray());
+                                        listBox6.Items.AddRange(nickedList.ToArray());
+                                        starArrayList.Clear();
+                                        rankArrayList.Clear();
+                                        finalsList.Clear();
+                                        winLossList.Clear();
+                                        FKDRList.Clear();
+                                        partyList.Clear();
+                                        nickedList.Clear();
+                                        previousUsernames.Clear();
                                     }
                                 }
                                 
@@ -452,8 +465,27 @@ namespace BedwarsStats
                 }
             }
             catch { }
+            // fkdr * fkdr + wlr
+            //for (int i = 0; i < winLossList.Count; i++)
+            //{
+          
+            //    double fkdr = (double)FKDRList[i];
+            //    double winloss = (double)winLossList[i];
+            //    double theRank = (fkdr * fkdr) + winloss;
+            //    sorter.Add(theRank); //adds indexes 
+            //} //calculate avgs.
+            //  //  int[] array = sorter.ToArray().ToList().IndexOf(sorter.ToArray().Max());
+            //ArrayList sorterWithIndexes = new ArrayList();
+            //for (int i = 0; i < sorter.Count; i++)
+            //{
+            //    int max = sorter.ToArray().ToList().IndexOf(sorter.ToArray().Max());
+            //    sorterWithIndexes.Add(max); // store indexes EX{4, 2, 1, 6}
+            //}
+            //// sort {4, 2, 1 , 6}  {20, 10, 5, 30}
+            //Array.Sort(sorterWithIndexes, sorter);
+
             for (int i = listBox1.Items.Count - 1; i >= 0; i--)
-            {
+            { // remove nickname
                 try
                 {
                     if (listBox3.Items[i].ToString() == " ")
@@ -469,11 +501,17 @@ namespace BedwarsStats
                 }
                 catch { continue;  }
             }
-            sortListBoxes();
+            
+            //sortListBoxes();
 
         }
-        public bool sortedYesOrno = false;
+
         public void sortListBoxes()
+        {
+
+        }
+        //public bool sortedYesOrno = false;
+        /*public void sortListBoxes()
         {
             double[] indexing = new double[listBox1.Items.Count];
             double[] arrangedBySize = new double[listBox1.Items.Count];
@@ -490,7 +528,7 @@ namespace BedwarsStats
                 indexing[i] = math;
                 // need a new method to find greatest via index, this only finds the calculations.
             }
-            for (int i = 0; i <= indexing.Length; i++)
+            for (int i = 0; i < indexing.Length; i++)
             {
                 double maxinteger = indexing.Max();
                 arrangedBySize[i] = indexing.ToList().IndexOf(maxinteger);
@@ -502,18 +540,17 @@ namespace BedwarsStats
 
                 
             }
-            MessageBox.Show(arrangedBySize.Length.ToString());
             listBox1.Items.Clear();
             for (int i = 0; i < arrangedBySize.Length; i++)
             {
-                listBox1.Items[i] = usernames[i];
+                listBox1.Items.Add(usernames[i]);
             }
 
 
 
         }
 
-
+        */
         public void AppendText(RichTextBox box, Color color, string text)
         {
             int start = box.TextLength;
@@ -540,9 +577,9 @@ namespace BedwarsStats
         bool apikeyexists = false;
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            acv();
+            fuck();
         }
-        private void acv()
+        private void fuck()
         {
             if (!apikeyexists)
             {
