@@ -5,7 +5,7 @@
 
 # Features
 - Color coding for different ranges of numbers
-- Fast response time (about 10ms)
+- Fast response time 
 - Ranks
 - Stars
 - Finals
@@ -13,8 +13,9 @@
 - Win Loss Ratio
 - In party?**
 - Nicked People
-- Support for vanilla, badlion, pvplounge, and lunar client.
-- Right-click menu for individual gamemode stats
+- Support for vanilla, badlion, pvplounge, and lunar client. (Lunar is probably broken because its a weird client in terms of its chat logs).
+- Right-click menu for individual gamemode stats (Finals, WLR, and FKDR)
+- A super tiny list for bots. (To see bots: https://pastebin.com/raw/b5fZntN5). 
 
 ** This finds people in parties; it only works if you are in a party chat. That means if you were theoretically in all-chat, this would not detect it.
 
