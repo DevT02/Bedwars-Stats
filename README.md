@@ -1,3 +1,5 @@
+
+
 # Bedwars Stats
 - Get real-time stats of a bedwars game.
 - Find sweats.
@@ -34,4 +36,8 @@ A : No. I contacted hypixel support a while ago, and they told me it was fine be
 # How does it work?
 - Purely on chat logs. 
 - The Hypixel API.
+
+# Need help on how to use?
+Here's a video: https://streamable.com/tohuoj
+
   
