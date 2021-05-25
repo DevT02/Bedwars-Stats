@@ -33,6 +33,10 @@ Q : Will I get banned for using this?
 
 A : No. I contacted hypixel support a while ago, and they told me it was fine because it did not give an advantage and was just pulling up stats.
 
+PROOF:
+
+![O8cPvZ](https://user-images.githubusercontent.com/40608267/119517244-7350cb80-bd45-11eb-8b2b-f2240a2e8817.png)
+
 # How does it work?
 - Purely on chat logs. 
 - The Hypixel API.
