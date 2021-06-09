@@ -4,6 +4,7 @@
 - Get real-time stats of a bedwars game.
 - Find sweats.
 - Avoid them and win more often.
+- Super external from minecraft. Open on your second monitor, or just pull up in between games without an annoying blockage.
 
 # Features
 - Color coding for different ranges of numbers
@@ -27,7 +28,16 @@
   3. Type "/who"
   4. Profit!
   
-  
+# How does it work?
+- Just reads whatever is stored in your chat logs.
+- Uses the hypixel website via your API key to pull up stats.
+
+# Need help on how to use?
+Here's a video: https://streamable.com/tohuoj
+
+# Discord for updates
+https://pastebin.com/raw/DcF8KJZ2
+
 # FAQ
 Q : Will I get banned for using this?
 
@@ -37,11 +47,3 @@ PROOF:
 
 ![O8cPvZ](https://user-images.githubusercontent.com/40608267/119517244-7350cb80-bd45-11eb-8b2b-f2240a2e8817.png)
 
-# How does it work?
-- Purely on chat logs. 
-- The Hypixel API.
-
-# Need help on how to use?
-Here's a video: https://streamable.com/tohuoj
-
-  
